@@ -32,8 +32,8 @@ while True:
         print("no real solutions")
     elif (determinant_value_float > 0):
         number_solutions_int = 2
-        solution_int1 = (b_int * -1 + determinant_value_float ** 0.5)/ 2 * a_int
-        solution_int2 = (b_int * -1 - determinant_value_float ** 0.5)/ 2 * a_int
+        solution_int1 = (b_int * -1 + (determinant_value_float ** 0.5))/ (2 * a_int)
+        solution_int2 = (b_int * -1 - (determinant_value_float ** 0.5))/ (2 * a_int)
         print("two solutions:  x1= ", solution_int1, " x2= ", solution_int2)
     else:
         number_solutions_int = 1

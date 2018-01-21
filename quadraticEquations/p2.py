@@ -1,17 +1,35 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sat Jan 20 21:38:01 2018
+Created on Sat Jan 20 20:23:06 2018
 
-@author: valen
+@author: Luis Gustavo Grubert Valensuela
+
+*******************************************************************************
+Name: Luis Gustavo Grubert Valensuela Z#:23351882 lvalensuela2015@fau.edu
+Course: Python Programming COP 4045-001 Spring 2018
+Professor: Dr. Ionut Cardei
+Due Date:01/21/2018             Due Time: 11:30PM
+Assignment Homework 1
+Last Changed: 01/21/2018
+
+Description:
+In this assignment a program will solve quadratic equations
+*******************************************************************************
+
+
 """
 
-#Program to 
 
 import pylab
 
+print("This program calculates quadratic equations in the format: axˆ2+bx+c\n\
+      and also shows its graph throut the module pylab")
+
+
 while True:
 
+    #variables initilization
     solution_int1 = 0;
     solution_int2 = 0;
     

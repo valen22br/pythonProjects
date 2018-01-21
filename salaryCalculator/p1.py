@@ -4,15 +4,26 @@
 Created on Sat Jan 20 20:23:06 2018
 
 @author: Luis Gustavo Grubert Valensuela
-z23351882
-lvalensuela2015@fau.edu
-HOMEWORK 1.1
+
+*******************************************************************************
+Name: Luis Gustavo Grubert Valensuela Z#:23351882 lvalensuela2015@fau.edu
+Course: Python Programming COP 4045-001 Spring 2018
+Professor: Dr. Ionut Cardei
+Due Date:01/21/2018             Due Time: 11:30PM
+Assignment Homework 1
+Last Changed: 01/21/2018
+
+Description:
+In this assignment a program will calculate the salary for a worker that is
+ paid weekly.
+*******************************************************************************
 """
 
-print("\t This program determines the weekly salary for an employee. The salary \n\
-      is the sum of the hourly rate times the hours worked, plus the bonus.\n\
-      For work hours exceeding 40 per week, an overtime rate \n\
-      of 1.5 is applied. The user must indicate if the worker has received a \n\
+
+print("\t This program determines the weekly salary for an employee. The \n\
+      salary is the sum of the hourly rate times the hours worked, plus the \n\
+      bonus. For work hours exceeding 40 per week, an overtime rate \n\
+      of 1.5 is applied. The user must indicate if the worker has received a\n\
       bonus by answering a y/n question. \n\
       Input consists of: hours worked, hourly rate, bonus. \n\
       The output is the total salary for this week.")
@@ -38,6 +49,7 @@ if(hours_worked_int > 40):
     overtime_value_float = (hours_worked_int - 40) * hour_salary_float * 1.5
     total_salary_float += overtime_value_float
 else:
-    total_salary_float = hours_worked_int * hour_salary_float
+    total_salary_float += hours_worked_int * hour_salary_float
     
-print("The total salary is $", str(total_salary_float), " overtime pay $" + str(overtime_value_float));
+print("The total salary is $", str(total_salary_float), " overtime pay $ "\
+      + str(overtime_value_float));

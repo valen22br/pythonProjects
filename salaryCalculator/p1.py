@@ -51,5 +51,5 @@ if(hours_worked_int > 40):
 else:
     total_salary_float += hours_worked_int * hour_salary_float
     
-print("The total salary is $", str(total_salary_float), " overtime pay $ "\
-      + str(overtime_value_float));
+print("The total salary is ${0:.2f}". format(total_salary_float) + 
+      " (overtime pay ${0:.2f}" .format(overtime_value_float)+ ")")

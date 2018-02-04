@@ -29,27 +29,27 @@ print("\t This program determines the weekly salary for an employee. The \n\
       The output is the total salary for this week.")
 
 hours_worked_str = input ("Enter the number of hours worked this week: ")
-hours_worked_int = int(hours_worked_str)
+hours_worked_float = float(hours_worked_str)
 
 total_salary_float, overtime_value_float = 0.0, 0.0;
 
-hour_salary_str = input("Enter the salary rate per hour (do not include the \
+rate_per_hour_str = input("Enter the salary rate per hour (do not include the \
                                                          '$' sign): ")
-hour_salary_float = float(hour_salary_str)
+rate_per_hour_float = float(rate_per_hour_str)
 
 got_bonus_str = input("Did the worker get a bonus ? (y/n) ")
 
 if (got_bonus_str == 'y'):
-    bonus_value_str = input("Enter Bonus: ")
-    bonus_value_int = float(bonus_value_str)
-    total_salary_float += bonus_value_int
+    bonus_str = input("Enter Bonus: ")
+    bonus_float = float(bonus_str)
+    total_salary_float += bonus_float
     
-if(hours_worked_int > 40):
-    total_salary_float += 40 * hour_salary_float
-    overtime_value_float = (hours_worked_int - 40) * hour_salary_float * 1.5
+if(hours_worked_float > 40):
+    total_salary_float += 40 * rate_per_hour_float
+    overtime_value_float = (hours_worked_float - 40) * rate_per_hour_float * 1.5
     total_salary_float += overtime_value_float
 else:
-    total_salary_float += hours_worked_int * hour_salary_float
+    total_salary_float += hours_worked_float * rate_per_hour_float
     
 print("The total salary is ${0:.2f}". format(total_salary_float) + 
       " (overtime pay ${0:.2f}" .format(overtime_value_float)+ ")")

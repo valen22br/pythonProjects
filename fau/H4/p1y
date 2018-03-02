@@ -24,28 +24,33 @@ def main():
     directorsDict = {}    
     reader3 = openFile("imdb-top-casts.csv", "r")
     for row in reader3:
-
         directorsDict[(row[0],row[1])] = row[2:]
-    #print(directorsDict)
     
     countTop5 = 5
     type(top5directorsDic)
     reader = openFile("imdb-top-rated.csv", "r")
     for row in reader:
-
         try:
             int(row[0])
-            if((row[1],row[2]) in top5directorsDic):
-                top5directorsDic[(row[1],row[2])] +=1
+            if((directorsDict[(row[1],row[2])][0]) in top5directorsDic):
+                top5directorsDic[directorsDict[(row[1],row[2])][0]] +=1
             else:
-                top5directorsDic[(row[1],row[2])] =1
+                top5directorsDic[(directorsDict[(row[1],row[2])][0])] =1
             
             
         except:
             continue
 
-    print(directorsDict[('Papillon', '1973')]) 
-    print(type(directorsDict[('Papillon', '1973')]))
+
+    print(top5directorsDic)
+    """
+    for k,v in top5directorsDic:
+        print(k, v)
+    """
+    #print(directorsDict[('Papillon', '1973')][5]) 
+    print(directorsDict[('Papillon', '1973')][0]) 
+    print(directorsDict[('101 Dalmatians', '1961')][0])
+    #print(directorsDict)
  
     
     reader2 = openFile("imdb-top-grossing.csv", "r")

@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Mar  2 10:29:53 2018
+
+@author: valen
+"""
+
+import csv
+
+def openFile(fileName, mode):
+    try:
+        f = open(fileName, mode)
+        reader = csv.reader(f)
+        return reader
+        f.close()
+    except:
+        print("Coud not open the file {} with mode {}.".format(fileName, mode))
+        
+def main():
+    top5directorsDic = {}
+    
+    
+    directorsDict = {}    
+    reader3 = openFile("imdb-top-casts.csv", "r")
+    for row in reader3:
+
+        directorsDict[(row[0],row[1])] = row[2:]
+    #print(directorsDict)
+    
+    countTop5 = 5
+    type(top5directorsDic)
+    reader = openFile("imdb-top-rated.csv", "r")
+    for row in reader:
+
+        try:
+            int(row[0])
+            if((row[1],row[2]) in top5directorsDic):
+                top5directorsDic[(row[1],row[2])] +=1
+            else:
+                top5directorsDic[(row[1],row[2])] =1
+            
+            
+        except:
+            continue
+
+    print(directorsDict[('Papillon', '1973')]) 
+    print(type(directorsDict[('Papillon', '1973')]))
+ 
+    
+    reader2 = openFile("imdb-top-grossing.csv", "r")
+    for row in reader2:
+        if(countTop5 >=0):
+           #print(row + ["=====> ", countTop5]) 
+           countTop5 -= 1
+        else:
+            countTop5 = 5
+            break
+    
+
+main()

@@ -17,17 +17,33 @@ def openFile(fileName, mode):
     except:
         print("Coud not open the file {} with mode {}.".format(fileName, mode))
         
+def fromDicttoList(myDict):
+    myList = []
+    for key,val in myDict.items():
+        myList.append((val, key))
+    myList.sort(reverse=True)
+    return myList
+
+def print5firstElementsFromList(myList, title = '--' , numberElements = 5):
+    print(title)
+    for i in myList:
+        print(i)
+        numberElements -= 1
+        if(numberElements <= 0):
+            break
+        
 def main():
     top5directorsDic = {}
+    gross5directorsDic = {}
     
-    
+    """
+    get direcotDictionary
+    """
     directorsDict = {}    
     reader3 = openFile("imdb-top-casts.csv", "r")
     for row in reader3:
         directorsDict[(row[0],row[1])] = row[2:]
     
-    countTop5 = 5
-    type(top5directorsDic)
     reader = openFile("imdb-top-rated.csv", "r")
     for row in reader:
         try:
@@ -42,25 +58,32 @@ def main():
             continue
 
 
-    print(top5directorsDic)
-    """
-    for k,v in top5directorsDic:
-        print(k, v)
-    """
-    #print(directorsDict[('Papillon', '1973')][5]) 
-    print(directorsDict[('Papillon', '1973')][0]) 
-    print(directorsDict[('101 Dalmatians', '1961')][0])
-    #print(directorsDict)
- 
-    
     reader2 = openFile("imdb-top-grossing.csv", "r")
     for row in reader2:
-        if(countTop5 >=0):
-           #print(row + ["=====> ", countTop5]) 
-           countTop5 -= 1
-        else:
-            countTop5 = 5
-            break
+        try:
+            int(row[0])
+            if((directorsDict[(row[1],row[2])][0]) in gross5directorsDic):
+                gross5directorsDic[directorsDict[(row[1],row[2])][0]] +=1
+            else:
+                gross5directorsDic[(directorsDict[(row[1],row[2])][0])] =1
+            
+            
+        except:
+            continue
+
+
+    listTop5 = fromDicttoList(top5directorsDic)
+    print5firstElementsFromList(listTop5, "List of the top 5 directors with most movies in the top rated list", 5)
+    
+    print("\n")
+    
+    listGross5 = fromDicttoList(gross5directorsDic)
+    print5firstElementsFromList(listGross5, "List of the top 5 directors with most movies in the top grossing list", 5)
+    
+   
+    #print(listGross5)
+    
+   
     
 
 main()

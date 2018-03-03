@@ -35,6 +35,8 @@ def print5firstElementsFromList(myList, title = '--' , numberElements = 5):
 def main():
     top5directorsDic = {}
     gross5directorsDic = {}
+    top5RatedActorsDic = {}
+    actorsMostGrossingDic = {}
     
     """
     get direcotDictionary
@@ -52,7 +54,13 @@ def main():
                 top5directorsDic[directorsDict[(row[1],row[2])][0]] +=1
             else:
                 top5directorsDic[(directorsDict[(row[1],row[2])][0])] =1
-            
+                
+                
+            if((directorsDict[(row[1],row[2])][1]) in top5RatedActorsDic):
+                top5RatedActorsDic[directorsDict[(row[1],row[2])][1]] +=1
+            else:
+                top5RatedActorsDic[(directorsDict[(row[1],row[2])][1])] =1
+
             
         except:
             continue
@@ -62,6 +70,12 @@ def main():
     for row in reader2:
         try:
             int(row[0])
+            if((directorsDict[(row[1],row[2])][0]) in gross5directorsDic):
+                gross5directorsDic[directorsDict[(row[1],row[2])][0]] +=1
+            else:
+                gross5directorsDic[(directorsDict[(row[1],row[2])][0])] =1
+                
+                
             if((directorsDict[(row[1],row[2])][0]) in gross5directorsDic):
                 gross5directorsDic[directorsDict[(row[1],row[2])][0]] +=1
             else:
@@ -79,6 +93,13 @@ def main():
     
     listGross5 = fromDicttoList(gross5directorsDic)
     print5firstElementsFromList(listGross5, "List of the top 5 directors with most movies in the top grossing list", 5)
+
+    print("\n")
+    
+    listTop5Rated = fromDicttoList(top5RatedActorsDic)
+    print5firstElementsFromList(listTop5Rated, "List of the top 5 actors with most movies in the top rated list", 5)
+    
+    print(directorsDict[('101 Dalmatians', '1961')]) 
     
    
     #print(listGross5)

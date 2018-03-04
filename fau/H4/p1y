@@ -3,11 +3,38 @@
 """
 Created on Fri Mar  2 10:29:53 2018
 
-@author: valen
+@author: Luis Gustavo Grubert Valensuela
+*******************************************************************************
+Name: Luis Gustavo Grubert Valensuela Z#:23351882 lvalensuela2015@fau.edu
+Course: Python Programming COP 4045-001 Spring 2018
+Professor: Dr. Ionut Cardei
+Due Date:03/04/2018             Due Time: 11:30PM
+Assignment Homework 3
+Last Changed: 03/04/2018
+Description:
+This assingment is about analyzing data from IMDB lists with top rated and top 
+    grossing movies.
+    
+It accomplish the following:
+    a) Displays a ranking (descending) of the movie directors with the most 
+    movies in the top rated list. Print only the top 5 directors, with a 
+    proper title above.
+b) Displays a ranking (descending) of the directors with the most movies in
+    the top grossing list. Print only the top 5 directors, with a 
+    proper title above.
+c) Displays a ranking (descending) of the actors with the most movie credits
+    from the top rated list. Print only the top 5 actors, with a proper title
+    above.
+d) Displays a ranking (descending) with the actors who brought in the most 
+    box office money, based on the top grossing movie list.
+    
+*******************************************************************************
 """
 
 import csv
-
+"""
+Function to open a csv falue and iterate through it using the csv module
+"""
 def openFile(fileName, mode):
     try:
         f = open(fileName, mode)
@@ -16,7 +43,12 @@ def openFile(fileName, mode):
         f.close()
     except:
         print("Coud not open the file {} with mode {}.".format(fileName, mode))
-        
+   
+"""
+Function that reads from a dictionary and return a ordered list(Reversed).
+If parameter swap is true then the key,value from the dictionary will be
+value, key to the new list
+"""     
 def fromDicttoList(myDict, swap = True):
     myList = []
     for key,val in myDict.items():
@@ -27,6 +59,10 @@ def fromDicttoList(myDict, swap = True):
     myList.sort(reverse=True)
     return myList
 
+"""
+Function to print the first elements from a list. Default value is 5.
+Takes a list, a title and the number of elements as arguments.
+"""    
 def print5firstElementsFromList(myList, title = '--' , numberElements = 5):
     print(title)
     for i in myList:
@@ -34,7 +70,10 @@ def print5firstElementsFromList(myList, title = '--' , numberElements = 5):
         numberElements -= 1
         if(numberElements <= 0):
             break
-        
+
+"""
+main function that will concentrate the main execution of the program.
+"""        
 def main():
     movieCastDict = {}
     ratingsInfoDict = {}
@@ -45,13 +84,15 @@ def main():
     actorNameDict = {}
     
     """
-    get direcotDictionary
+    populate movieCastDict dictionary
     """
-    
     reader3 = openFile("imdb-top-casts.csv", "r")
     for row in reader3:
         movieCastDict[(row[0],row[1])] = row[2:]
     
+    """
+    populate ratingsInfoDict and top5RatedActorsDic dictionaries
+    """
     reader = openFile("imdb-top-rated.csv", "r")
     for row in reader:
         try:
@@ -71,7 +112,9 @@ def main():
         except:
             continue
 
-
+    """
+    populate grossInfoDict dictionariy
+    """
     reader2 = openFile("imdb-top-grossing.csv", "r")
     for row in reader2:
         try:
@@ -104,9 +147,6 @@ def main():
             if(value == k):
                 dictGrossingActors[key[0]] = v[1:] 
         
-    #print(type(actorNameDict))
-    #print(actorNameDict['Tom Hanks'])
-
     listTop5 = fromDicttoList(ratingsInfoDict)
     print5firstElementsFromList(listTop5, "List of the top 5 directors with most movies in the top rated list", 5)
     
@@ -120,12 +160,6 @@ def main():
     listTop5Rated = fromDicttoList(top5RatedActorsDic)
     print5firstElementsFromList(listTop5Rated, "List of the top 5 actors with most movies in the top rated list", 5)
     
-    #print(grossInfoDict)
-    #print("\n")
-    #print(imdbTopGrossingDict)
-    
-    #print(movieCastDict[('101 Dalmatians', '1961')]) 
-    
     print("\n")    
     
     listTop5Rated = fromDicttoList(imdbTopGrossingDict)
@@ -135,16 +169,5 @@ def main():
 
     listTop5Rated = fromDicttoList(dictGrossingActors, False)
     print5firstElementsFromList(listTop5Rated, "List of the top 5 actors from the top gross movings", 5)
-
-    #print(ratingsInfoDict)
-    #print(type(imdbTopGrossingDict))
-    #print(imdbTopGrossingDict)
-    
-    
-   
-    #print(listGross5)
-    
-   
-    
 
 main()

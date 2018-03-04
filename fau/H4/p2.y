@@ -96,9 +96,9 @@ class Poly(object):
                     sumListDict[i] += self.listFloatCoefficients[i]
                 else:
                     sumListDict[i] = self.listFloatCoefficients[i]
-                for j in range(len(other.listFloatCoefficients)):
-                    if(j in sumListDict):
-                        sumListDict[j] += other.listFloatCoefficients[j]
+            for j in range(len(other.listFloatCoefficients)):
+                if(j in sumListDict):
+                    sumListDict[j] += other.listFloatCoefficients[j]
                         #print(other.listFloatCoefficients[i])
                     """
                     else:
@@ -138,8 +138,8 @@ def main():
     print(p1 != p5)
     """
     print("p1=> ",p1)
-    print("p5=> ", p5)
-    p3 = p1 + p5
+    print("p2=> ", p2)
+    p3 = p2 + p1
     print("sum=>",p3)
 
 

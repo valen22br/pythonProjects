@@ -114,53 +114,91 @@ class Poly(object):
         #print(newSumList)
         sumResult = Poly(newSumList)
         return(sumResult)
+        
+    def __rmul__(self, other):
+        print("in __mult__ method")
+        print(type(other))
+        
+        sumListDict = {}
+        newSumList = []
+        
+        if(type(other) == int or type(other) == float):
+            print("aeeeee")
+            
+            for i in range(len(self.listFloatCoefficients)):
+                if(i in sumListDict):
+                    sumListDict[i] += self.listFloatCoefficients[i] * other
+                else:
+                    sumListDict[i] = self.listFloatCoefficients[i] * other
+                    
+                    
+        for key, value in sumListDict.items():
+            newSumList.append(value)
+  
+        sumResult = Poly(newSumList)
+        return(sumResult) 
     
     def __mul__(self, other):
         
         print("in __mult__ method")
+        print(type(other))
+        
+        sumListDict = {}
         newSumList = []
         
-    
-        
-        #print(self.listFloatCoefficients)
-        #print(other.listFloatCoefficients)
-        
-        """ Swap values to let self,ListFloatCoefficients will be the biggest one """            
-        if(len(self.listFloatCoefficients) < len(other.listFloatCoefficients)):
-            self.listFloatCoefficients, other.listFloatCoefficients = other.listFloatCoefficients, self.listFloatCoefficients
-
-        sumListDict = {}
-                  
-        for i in range(len(self.listFloatCoefficients)):
-            if(i in sumListDict):
-                sumListDict[i] += self.listFloatCoefficients[i] * other.listFloatCoefficients[0]
-            else:
-                sumListDict[i] = self.listFloatCoefficients[i] * other.listFloatCoefficients[0]
-        
-        #print("=> ", sumListDict)
-
-        for j in range(1,len(other.listFloatCoefficients)):
-            #print("====>", j)
+        if(type(other) == int or type(other) == float):
+            print("aeeeee")
+            
             for i in range(len(self.listFloatCoefficients)):
-                if(i+j in sumListDict):
-                    sumListDict[i+j] += self.listFloatCoefficients[i] * other.listFloatCoefficients[j]
+                if(i in sumListDict):
+                    sumListDict[i] += self.listFloatCoefficients[i] * other
                 else:
-                    sumListDict[i+j] = self.listFloatCoefficients[i] * other.listFloatCoefficients[j]
+                    sumListDict[i] = self.listFloatCoefficients[i] * other
+            
+            
+            
+            
+        else:
+            
+            #print(self.listFloatCoefficients)
+            #print(other.listFloatCoefficients)
+            
+            """ Swap values to let self,ListFloatCoefficients will be the biggest one """            
+            if(len(self.listFloatCoefficients) < len(other.listFloatCoefficients)):
+                self.listFloatCoefficients, other.listFloatCoefficients = other.listFloatCoefficients, self.listFloatCoefficients
+    
 
-        """
-        for j in range(len(other.listFloatCoefficients)):
-            if(j+1 in sumListDict):
-                sumListDict[j+1] += other.listFloatCoefficients[j]
-            else:
-                sumListDict[j+1] = other.listFloatCoefficients[j]
-        """
-        
+                      
+            for i in range(len(self.listFloatCoefficients)):
+                if(i in sumListDict):
+                    sumListDict[i] += self.listFloatCoefficients[i] * other.listFloatCoefficients[0]
+                else:
+                    sumListDict[i] = self.listFloatCoefficients[i] * other.listFloatCoefficients[0]
+            
+            #print("=> ", sumListDict)
+    
+            for j in range(1,len(other.listFloatCoefficients)):
+                #print("====>", j)
+                for i in range(len(self.listFloatCoefficients)):
+                    if(i+j in sumListDict):
+                        sumListDict[i+j] += self.listFloatCoefficients[i] * other.listFloatCoefficients[j]
+                    else:
+                        sumListDict[i+j] = self.listFloatCoefficients[i] * other.listFloatCoefficients[j]
+    
+            """
+            for j in range(len(other.listFloatCoefficients)):
+                if(j+1 in sumListDict):
+                    sumListDict[j+1] += other.listFloatCoefficients[j]
+                else:
+                    sumListDict[j+1] = other.listFloatCoefficients[j]
+            """
+            
         for key, value in sumListDict.items():
             newSumList.append(value)
-            
-        #print("==> ", sumListDict)
-
-        #print(sumListDict)
+                
+            #print("==> ", sumListDict)
+    
+            #print(sumListDict)
         sumResult = Poly(newSumList)
         return(sumResult) 
         
@@ -208,6 +246,16 @@ def main():
     print("p1=> ",p1)
     print("p2=> ", p2)
     p3 = p1 * p2
+    print("mul=>",p3)
+    
+    print("\n")
+    print("p1=> ",p1)
+    p3 = p1 * 3
+    print("mul=>",p3)
+
+    print("\n")
+    print("p1=> ",p1)
+    p3 = 3 * p1
     print("mul=>",p3)
 
     """

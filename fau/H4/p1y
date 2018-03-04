@@ -17,10 +17,13 @@ def openFile(fileName, mode):
     except:
         print("Coud not open the file {} with mode {}.".format(fileName, mode))
         
-def fromDicttoList(myDict):
+def fromDicttoList(myDict, swap = True):
     myList = []
     for key,val in myDict.items():
-        myList.append((val, key))
+        if(swap):
+            myList.append((val, key))
+        else:
+            myList.append((key, val))
     myList.sort(reverse=True)
     return myList
 
@@ -33,9 +36,9 @@ def print5firstElementsFromList(myList, title = '--' , numberElements = 5):
             break
         
 def main():
-    directorsDict = {}
-    top5directorsDic = {}
-    gross5directorsDic = {}
+    movieCastDict = {}
+    ratingsInfoDict = {}
+    grossInfoDict = {}
     top5RatedActorsDic = {}
     
     imdbTopGrossingDict = {}
@@ -47,22 +50,22 @@ def main():
     
     reader3 = openFile("imdb-top-casts.csv", "r")
     for row in reader3:
-        directorsDict[(row[0],row[1])] = row[2:]
+        movieCastDict[(row[0],row[1])] = row[2:]
     
     reader = openFile("imdb-top-rated.csv", "r")
     for row in reader:
         try:
             int(row[0])
-            if((directorsDict[(row[1],row[2])][0]) in top5directorsDic):
-                top5directorsDic[directorsDict[(row[1],row[2])][0]] +=1
+            if((movieCastDict[(row[1],row[2])][0]) in ratingsInfoDict):
+                ratingsInfoDict[movieCastDict[(row[1],row[2])][0]] +=1
             else:
-                top5directorsDic[(directorsDict[(row[1],row[2])][0])] =1
+                ratingsInfoDict[(movieCastDict[(row[1],row[2])][0])] =1
                 
                 
-            if((directorsDict[(row[1],row[2])][1]) in top5RatedActorsDic):
-                top5RatedActorsDic[directorsDict[(row[1],row[2])][1]] +=1
+            if((movieCastDict[(row[1],row[2])][1]) in top5RatedActorsDic):
+                top5RatedActorsDic[movieCastDict[(row[1],row[2])][1]] +=1
             else:
-                top5RatedActorsDic[(directorsDict[(row[1],row[2])][1])] =1
+                top5RatedActorsDic[(movieCastDict[(row[1],row[2])][1])] =1
 
             
         except:
@@ -76,17 +79,11 @@ def main():
             
             imdbTopGrossingDict[(row[1],row[2])] = row[3:]
             
-            if((directorsDict[(row[1],row[2])][0]) in gross5directorsDic):
-                gross5directorsDic[directorsDict[(row[1],row[2])][0]] +=1
+            if((movieCastDict[(row[1],row[2])][0]) in grossInfoDict):
+                grossInfoDict[movieCastDict[(row[1],row[2])][0]] +=1
             else:
-                gross5directorsDic[(directorsDict[(row[1],row[2])][0])] =1
-                
-                
-            if((directorsDict[(row[1],row[2])][0]) in gross5directorsDic):
-                gross5directorsDic[directorsDict[(row[1],row[2])][0]] +=1
-            else:
-                gross5directorsDic[(directorsDict[(row[1],row[2])][0])] =1
-            
+                grossInfoDict[(movieCastDict[(row[1],row[2])][0])] =1
+
             
         except:
             continue
@@ -94,22 +91,28 @@ def main():
     Populating dictionary actorNameDict with a key being the name of the actor, 
     and the value being a list of tuples in the format (FilmeName, year)
     """
-    for key,value in directorsDict.items():
+    for key,value in movieCastDict.items():
         #print(value, key)
         if(value[1] in actorNameDict):
             actorNameDict[value[1]].append((key[0],key[1]))
         else:
             actorNameDict[value[1]] = [(key[0],key[1])]
+            
+    dictGrossingActors = {}    
+    for key,value in fromDicttoList(imdbTopGrossingDict):
+        for k, v in movieCastDict.items():
+            if(value == k):
+                dictGrossingActors[key[0]] = v[1:] 
         
-    print(type(actorNameDict))
-    print(actorNameDict['Tom Hanks'])
+    #print(type(actorNameDict))
+    #print(actorNameDict['Tom Hanks'])
 
-    listTop5 = fromDicttoList(top5directorsDic)
+    listTop5 = fromDicttoList(ratingsInfoDict)
     print5firstElementsFromList(listTop5, "List of the top 5 directors with most movies in the top rated list", 5)
     
     print("\n")
     
-    listGross5 = fromDicttoList(gross5directorsDic)
+    listGross5 = fromDicttoList(grossInfoDict)
     print5firstElementsFromList(listGross5, "List of the top 5 directors with most movies in the top grossing list", 5)
 
     print("\n")
@@ -117,10 +120,26 @@ def main():
     listTop5Rated = fromDicttoList(top5RatedActorsDic)
     print5firstElementsFromList(listTop5Rated, "List of the top 5 actors with most movies in the top rated list", 5)
     
-    print(directorsDict[('101 Dalmatians', '1961')]) 
-    #print(directorsDict)
+    #print(grossInfoDict)
+    #print("\n")
+    #print(imdbTopGrossingDict)
+    
+    #print(movieCastDict[('101 Dalmatians', '1961')]) 
+    
+    print("\n")    
+    
+    listTop5Rated = fromDicttoList(imdbTopGrossingDict)
+    print5firstElementsFromList(listTop5Rated, "List of the top 5 gross movings", 5)
+
+    print("\n")    
+
+    listTop5Rated = fromDicttoList(dictGrossingActors, False)
+    print5firstElementsFromList(listTop5Rated, "List of the top 5 actors from the top gross movings", 5)
+
+    #print(ratingsInfoDict)
     #print(type(imdbTopGrossingDict))
     #print(imdbTopGrossingDict)
+    
     
    
     #print(listGross5)

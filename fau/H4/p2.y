@@ -71,7 +71,7 @@ class Poly(object):
             return self.listFloatCoefficients != other.listFloatCoefficients
         
     def __add__(self,other):
-        print("in __add__ method")
+        #print("in __add__ method")
         newSumList = []
         
         """ if the lengths of the list are equal, use comprehension to create the sum of the values of the lists """
@@ -101,8 +101,8 @@ class Poly(object):
         return(sumResult)
         
     def __rmul__(self, other):
-        print("in __mult__ method")
-        print(type(other))
+        #print("in __rmult__ method")
+        #print(type(other))
         
         sumListDict = {}
         newSumList = []
@@ -124,16 +124,13 @@ class Poly(object):
         return(sumResult) 
     
     def __mul__(self, other):
-        
-        print("in __mult__ method")
-        print(type(other))
+        #print("in __mult__ method")
+        #print(type(other))
         
         sumListDict = {}
         newSumList = []
         
         if(type(other) == int or type(other) == float):
-            print("aeeeee")
-            
             for i in range(len(self.listFloatCoefficients)):
                 if(i in sumListDict):
                     sumListDict[i] += self.listFloatCoefficients[i] * other
@@ -165,14 +162,15 @@ class Poly(object):
         return(sumResult) 
         
     def __getitem__(self, other):
-        print("==> ", other)
+        #print("==> ", other)
         try:
             return self.listFloatCoefficients[other]
         except:
             return "ValueError"
-    
-    def eval(self, listValue):
-        print(self)
+        
+    def evalAuxiliary(self, listValue = []):
+        #print("in __evalAuxiliary__ method")  
+        #print(self)
         intCoefficient = 0;
         resultFloat = 0
         for i in self.listFloatCoefficients:
@@ -189,8 +187,34 @@ class Poly(object):
                 intCoefficient += 1
                 continue
             intCoefficient += 1
-            print(resultFloat)
-        return("{}".format(resultFloat))      
+        return("{}".format(resultFloat))  
+    
+    def eval(self, listValue):
+        #print("in __eval__ method")  
+        if(type(listValue) == list or type(listValue) == tuple):
+            #print("====> ", listValue)
+            listResultsFloat = [self.evalAuxiliary(i) for i in listValue]
+            #listResultsFloat = []
+            return("{}".format(listResultsFloat))
+        else:
+            print(self)
+            intCoefficient = 0;
+            resultFloat = 0
+            for i in self.listFloatCoefficients:
+                if(i != 0):
+                    if(intCoefficient == 0):
+                        if(i > 0):
+                            resultFloat += i
+                    else:
+                        if(intCoefficient == 1):
+                            resultFloat += listValue*i
+                        else:
+                            resultFloat += pow(listValue, intCoefficient)*i
+                else:
+                    intCoefficient += 1
+                    continue
+                intCoefficient += 1
+            return("{}".format(resultFloat))
 
 def main():
     p1 = Poly([1, -2, -4])     
@@ -200,19 +224,6 @@ def main():
     p5 = Poly([1, -2, -4]) 
     p6 = Poly((0,1))
     
-    """
-    print(p2)
-    repr(p1)
-    repr(p3)
-    repr(p5)
-    
-    print(p1 == p2)
-    print(p1 == p5)
-    print(p5 == Poly((1, -2, -4)))
-    
-    print(p1 != p2)
-    print(p1 != p5)
-    """
     print("p1=> ",p1)
     print("p2=> ", p2)
     p3 = p2 + p1
@@ -243,19 +254,25 @@ def main():
     p3 = p1 * p7
     print("mul=>",p3)    
     
-    print(p3[5])
-    
-    print(p6.eval(10))
     
     print("\n")
+    print("p6=> ",p6)
+    print("eval=> 10 => ",p6.eval(10))
     
-    print(p5.eval(-1))
+    print("\n")
+    print("p5=> ",p5)    
+    print("eval=> -1 => ",p5.eval(-1))
+    
+    print("\n")
+    print("p5=> ",p5)    
+    print("eval=> -2 => ",p5.eval(-2))
+    
+    print("\n")
+    print("p1=> ",p1)    
+    print("eval=> -1 => ",p1.eval(-1))
 
-    """
-    print(p1)    
-    print(p2)
-    print(p3)
-    print(p4)
-    """
+    print("\n")
+    print("p1=> ",p1)    
+    print("eval=> [0,-1,1] => ",p1.eval([0,-1,1]))     
     
 main()

@@ -9,6 +9,7 @@
 import random
 import time
 import pylab
+import numpy
 
 class Island (object):
     """Island
@@ -270,7 +271,7 @@ class Human(Predator):
             
     def eat(self):
         ''' Human looks for one of the 8 locations with Prey. If found
-        moves to that location, updates the starve clock, removes the Prey
+        moves to that location, updates the starve clock, removes the Prey       
         '''
         if not self.moved:
             location = self.check_grid(Prey)
@@ -299,10 +300,12 @@ class Human(Predator):
                 self.moved=True
 
 ###########################################
-def main(human_breed_time = 3, human_starve_time = 3, human_hunting_time = 1, \
-         initial_humans=4, \
-         predator_breed_time=6, predator_starve_time=3, initial_predators=10, \
-         prey_breed_time=3, initial_prey=50, size=10, ticks=300):
+#def main(predator_breed_time=6, predator_starve_time=3, initial_predators=10, prey_breed_time=3, initial_prey=50, \
+#         size=10, ticks=300):
+def main(human_breed_time = 4, human_starve_time = 6, human_hunting_time = 6, \
+         initial_humans=5, \
+         predator_breed_time=10, predator_starve_time=3, initial_predators=10, \
+         prey_breed_time=1, initial_prey=50, size=10, ticks=25):
     ''' main simulation. Sets defaults, runs event loop, plots at the end
     '''
     # initialization values
@@ -332,13 +335,16 @@ def main(human_breed_time = 3, human_starve_time = 3, human_hunting_time = 1, \
             for y in range(size):
                 animal = isle.animal(x,y)
                 if animal:
-                    if isinstance(animal,Predator) or isinstance(animal,Human):
-                        animal.eat()
                     if isinstance(animal,Human):
+                        animal.eat()
                         animal.hunt()
+                    if isinstance(animal,Predator):
+                        animal.eat()
+                    
                     animal.move()
                     animal.breed()
                     animal.clock_tick()
+                    
 
         # record info for display, plotting
         prey_count = isle.count_prey()
@@ -363,11 +369,24 @@ def main(human_breed_time = 3, human_starve_time = 3, human_hunting_time = 1, \
 #        print('*'*20)
 #        print(isle)
 #        ans = input("Return to continue")
+        
+    print("Pray List: ",prey_list, len(prey_list))
+    print("\n")
+    print("Predator List: ",predator_list, len(predator_list))
+    print("\n")
+    print("Human List: ",human_list, len(human_list))
+    
+    predator_list = numpy.array(predator_list)
+    prey_list = numpy.array(prey_list)
+    human_list = numpy.array(human_list)
+    
+    
     pylab.plot(range(0,ticks), predator_list, label="Predators")
     pylab.plot(range(0,ticks), prey_list, label="Prey")
     pylab.plot(range(0,ticks), human_list, label="Human")
     pylab.legend(loc="best", shadow=True)
     pylab.show()
+    
     print(isle)
 
 main()

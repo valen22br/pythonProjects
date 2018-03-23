@@ -252,7 +252,7 @@ class Predator(Animal):
                 self.starve_clock=self.starve_time
                 self.moved=True
                 
-class Human(Predator):
+class Human(Animal):
     def __init__(self,island, x=0, y=0, s="H"):
         Predator.__init__(self,island,x,y,s)
         self.starve_clock = self.starve_time
@@ -302,14 +302,14 @@ class Human(Predator):
 ###########################################
 #def main(predator_breed_time=6, predator_starve_time=3, initial_predators=10, prey_breed_time=3, initial_prey=50, \
 #         size=10, ticks=300):
-def main(human_breed_time = 4, human_starve_time = 6, human_hunting_time = 6, \
-         initial_humans=5, \
-         predator_breed_time=10, predator_starve_time=3, initial_predators=10, \
-         prey_breed_time=1, initial_prey=50, size=10, ticks=25):
+def main(human_breed_time = 17, human_starve_time = 6, human_hunting_time = 6, \
+         initial_humans=10, \
+         predator_breed_time=4, predator_starve_time=6, initial_predators=10, \
+         prey_breed_time=1, initial_prey=50, size=10, ticks=50):
     ''' main simulation. Sets defaults, runs event loop, plots at the end
     '''
     # initialization values
-    Human.bread_time = human_breed_time
+    Human.breed_time = human_breed_time
     Human.hunt_time = human_hunting_time
     Human.starve_time = human_starve_time
     Predator.breed_time = predator_breed_time

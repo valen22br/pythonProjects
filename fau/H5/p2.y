@@ -39,7 +39,7 @@ def ed_clearContent(filename):
 def ed_read(filename, fromValue=0, to=-1):
     fileContentStr = stringFileContent(filename)
     lengthFileContent = len(fileContentStr)
-    print(lengthFileContent)
+    #print(lengthFileContent)
     if(fromValue > lengthFileContent):
       raise ValueError("Parameter exceeds the file length")  
     return(fileContentStr[fromValue:to])
@@ -61,8 +61,23 @@ def ed_find(filename, search_str):
     
     
 
-def ed_replace(fliename, search_str):
-    pass
+def ed_replace(filename, search_str, replace_with, occurrence=-1):
+    stringContent = ed_read(filename)
+    listIndexFound = ed_find(filename,search_str)
+    if(occurrence == -1):
+        replaceTimes = len(listIndexFound)
+        stringContent = stringContent.replace(search_str,replace_with,replaceTimes)
+        #return stringContent
+    else:
+        replaceTimes = 1
+        if(occurrence >= len(listIndexFound)):
+            return 0
+        else:
+            tempString = stringContent[0:listIndexFound[occurrence]]
+            stringContent = stringContent[listIndexFound[occurrence]:].replace(search_str,replace_with,replaceTimes)
+            stringContent = tempString + stringContent
+            
+    print(stringContent)
 
 def ed_append(filename, string):
     length = len(string)
@@ -103,13 +118,20 @@ def main():
     print(ed_append(fn,"0123456789"))
     print(ed_append(fn,"0123456789\n"))
     print(ed_append(fn,"0123456789"))
-    print(ed_read(fn))
+    #print(ed_read(fn))
     
     print("\n")
     
-    print(ed_find(fn,"346"))
+    #print(ed_find(fn,"346"))
     
-    print(ed_find(fn,"345"))
+    #print(ed_find(fn,"345"))
+    
+    ed_replace(fn,"345", "ABCDE",2)
+    ed_replace(fn,"345", "ABCDE",1)
+    ed_replace(fn,"345", "ABCDE",0)
+    ed_replace(fn,"345", "ABCDE",-1)
+    ed_replace(fn,"345", "ABCDE")
+    ed_replace(fn,"345", "ABCDE",3)
     
     
     #ed_append(fn,"GUTI")

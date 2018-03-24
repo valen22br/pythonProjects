@@ -6,8 +6,6 @@ Created on Fri Mar 23 11:19:19 2018
 @author: valen
 """
 
-import csv
-
 """
 Function to open a csv falue and iterate through it using the csv module
 """
@@ -21,6 +19,18 @@ def openFile(fileName, mode):
         print("Coud not open the file {} with mode {}.".format(fileName, mode))
         f.close()
         
+def stringFileContent(fn):
+    try:
+        f = open(fn,"r")
+        fileContent = f.readlines()
+        fileContentStr = ""
+        for i in fileContent:
+            fileContentStr += i
+            
+        return fileContentStr
+    except:
+        print("Error trying to read the file content")
+        
 def ed_clearContent(filename):
     f = openFile(filename, "+w")
     f.write("")
@@ -28,16 +38,17 @@ def ed_clearContent(filename):
 
 def ed_read(filename, fromValue=0, to=-1):
     f = openFile(filename, "r")
-    #print(f.readlines())
-    lengthFileContent = f.readlines()
-    lengthFileContent = len(lengthFileContent)
+    fileContent = f.readlines()
+    fileContentStr = ""
+    for i in fileContent:
+        fileContentStr += i
+    lengthFileContent = len(fileContent[0])
     print(lengthFileContent)
     if(fromValue > lengthFileContent):
       raise ValueError("Parameter exceeds the file length")  
       
-    
-    f.seek(fromValue)
-    return(f.read())
+    #f.seek(fromValue)
+    return(fileContentStr[fromValue:to])
     f.close()
 
 def ed_find(filenam, search_str):
@@ -69,9 +80,22 @@ def main():
     ed_clearContent(fn)
     
     print(ed_append(fn,"0123456789"))
+    print(ed_append(fn,"0123456789\n"))
+    print(ed_append(fn,"0123456789"))
+
+    print(ed_read(fn))
+    
+    print(ed_read(fn,3,9))
+    
+    print(ed_read(fn,3))
+    
+    
+    ed_clearContent(fn)
+    
+    print(ed_append(fn,"0123456789"))
+    print(ed_append(fn,"0123456789\n"))
     print(ed_append(fn,"0123456789"))
     
-    print(ed_read(fn, 2, -1))
     
     #ed_append(fn,"GUTI")
     

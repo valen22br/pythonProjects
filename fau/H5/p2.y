@@ -19,6 +19,13 @@ def openFile(fileName, mode):
         print("Coud not open the file {} with mode {}.".format(fileName, mode))
         f.close()
         
+def writeStringToFile(filename, myString):
+    f = openFile(filename, "+w")
+    f.write(myString)
+    f.close
+    
+    
+        
 def stringFileContent(fn):
     try:
         f = open(fn,"r")
@@ -88,7 +95,24 @@ def ed_append(filename, string):
 
 
 def ed_write(filename, pos_str_col):
-    pass
+    stringFileContent = ed_read(filename)
+    print("Initial File Content ", stringFileContent)
+    print("Initial File Size ",len(stringFileContent))
+    totalLengthString = len(stringFileContent)
+    for key,value in pos_str_col:
+        print(key, value)
+        if(key > totalLengthString):
+            raise ValueError("Position parameter is grater than the file contents size. Position: ", key)
+        else:
+            tempStr = stringFileContent[0:key]
+            posStr = value + stringFileContent[key+len(value):]
+            stringFileContent = tempStr+posStr
+    print(stringFileContent)
+    print("Final File Content ", stringFileContent)
+    print("Final File Size ",len(stringFileContent))
+    writeStringToFile(filename,stringFileContent)
+    print(len(pos_str_col))
+    
 
 def ed_insert(filaneme, pos_str_col):
     pass
@@ -121,7 +145,7 @@ def main():
     #print(ed_read(fn))
     
     print("\n")
-    
+     
     #print(ed_find(fn,"346"))
     
     #print(ed_find(fn,"345"))
@@ -132,6 +156,17 @@ def main():
     ed_replace(fn,"345", "ABCDE",-1)
     ed_replace(fn,"345", "ABCDE")
     ed_replace(fn,"345", "ABCDE",3)
+    
+    print("\n")
+    
+    ed_clearContent(fn)
+    
+    print(ed_append(fn,"0123456789"))
+    print(ed_append(fn,"0123456789\n"))
+    print(ed_append(fn,"0123456789"))
+    
+    #ed_write(fn,((2,"ABC"), (10,"DEFG")))
+    #ed_write(fn,((2,"ABC"), (29,"DEFG")))    
     
     
     #ed_append(fn,"GUTI")

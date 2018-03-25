@@ -9,6 +9,7 @@ Created on Fri Mar 23 11:19:19 2018
 """
 Function to open a csv falue and iterate through it using the csv module
 """
+import os
 def openFile(fileName, mode):
     try:
         f = open(fileName, mode)
@@ -29,7 +30,7 @@ def writeStringToFile(filename, myString):
 def stringFileContent(fn):
     try:
         f = open(fn,"r")
-        fileContent = f.readlines()
+        fileContent = f.read()
         fileContentStr = ""
         for i in fileContent:
             fileContentStr += i
@@ -54,6 +55,9 @@ def ed_read(filename, fromValue=0, to=-1):
 def ed_find(filename, search_str):
     listIndexesFound = []
     fileContentStr = stringFileContent(filename)
+    #print("Content Type=> ",type(fileContentStr))
+    if(fileContentStr is None):
+        fileContentStr = ""
     findIndex = fileContentStr.find(search_str)
     if findIndex == -1:
        return  listIndexesFound
@@ -140,9 +144,17 @@ def ed_insert(filename, pos_str_col):
     writeStringToFile(filename,stringFileContent)
     #print(len(pos_str_col))
 
-def ed_search():
-
-
+def ed_search(path, search_string):
+    listProibitFiles = ['.DS_Store']
+    listAbsoluteFileNames = []
+    for dirname, dir_list, file_list in os.walk(path):
+        for f in file_list:
+            if f not in listProibitFiles:
+                listIndexFound = ed_find(os.path.join(dirname,f),search_string)
+                #print("Files: ",os.path.join(dirname,f))
+                if len(listIndexFound) > 1:
+                    listAbsoluteFileNames.append(os.path.join(dirname,f))
+    return listAbsoluteFileNames
 
 def main():
     fn = "file1.txt" #asssume this file does not exist yet.
@@ -202,10 +214,8 @@ def main():
     print(ed_append(fn,"0123456789\n"))
     print(ed_append(fn,"0123456789"))
     '''
-
-    #ed_insert(fn,((2,"ABC"),))
-    #ed_insert(fn,((10,"DEFG"),))
-    #ed_insert(fn,((2,"ABC"),(2,"DEF"),(2,"GHI"),(2,"JKL"), (10,"MNO")))
+    
+    print(ed_search(".","ABC"))
     
 
 

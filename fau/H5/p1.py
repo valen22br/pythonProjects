@@ -302,10 +302,10 @@ class Human(Animal):
 ###########################################
 #def main(predator_breed_time=6, predator_starve_time=3, initial_predators=10, prey_breed_time=3, initial_prey=50, \
 #         size=10, ticks=300):
-def main(human_breed_time = 17, human_starve_time = 6, human_hunting_time = 6, \
+def main(human_breed_time = 6, human_starve_time = 6, human_hunting_time = 6, \
          initial_humans=10, \
-         predator_breed_time=4, predator_starve_time=6, initial_predators=10, \
-         prey_breed_time=1, initial_prey=50, size=10, ticks=50):
+         predator_breed_time=3, predator_starve_time=6, initial_predators=10, \
+         prey_breed_time=0, initial_prey=70, size=10, ticks=300):
     ''' main simulation. Sets defaults, runs event loop, plots at the end
     '''
     # initialization values
@@ -369,13 +369,13 @@ def main(human_breed_time = 17, human_starve_time = 6, human_hunting_time = 6, \
 #        print('*'*20)
 #        print(isle)
 #        ans = input("Return to continue")
-        
+    '''    
     print("Pray List: ",prey_list, len(prey_list))
     print("\n")
     print("Predator List: ",predator_list, len(predator_list))
     print("\n")
     print("Human List: ",human_list, len(human_list))
-    
+    '''
     predator_list = numpy.array(predator_list)
     prey_list = numpy.array(prey_list)
     human_list = numpy.array(human_list)

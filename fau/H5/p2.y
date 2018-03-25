@@ -114,9 +114,33 @@ def ed_write(filename, pos_str_col):
     print(len(pos_str_col))
     
 
-def ed_insert(filaneme, pos_str_col):
-    pass
+def ed_insert(filename, pos_str_col):
+    #print(type(pos_str_col))
+    #print(pos_str_col)
+    stringFileContent = ed_read(filename)
+    #print("Initial File Content ", stringFileContent)
+    #print("Initial File Size ",len(stringFileContent))
+    totalLengthString = len(stringFileContent)
+    slicePosition = 0
+    for key,value in pos_str_col:
+        if(key > totalLengthString):
+            raise ValueError("Position parameter is grater than the file contents size. Position: ", key)
+        else:
+            tempStr = stringFileContent[0:key+slicePosition]
+            #print("NewKey ",key+slicePosition)
+            #print("PosSTR: ",stringFileContent[key+slicePosition:])
+            posStr = value + stringFileContent[key+slicePosition:]
+            stringFileContent = tempStr+posStr
+            slicePosition += len(value)
+        #print("SlicePosition ",slicePosition)
+            
+    #print(stringFileContent)
+    #print("Final File Content ", stringFileContent)
+    #print("Final File Size ",len(stringFileContent))
+    writeStringToFile(filename,stringFileContent)
+    #print(len(pos_str_col))
 
+def ed_search():
 
 
 
@@ -165,28 +189,23 @@ def main():
     print(ed_append(fn,"0123456789\n"))
     print(ed_append(fn,"0123456789"))
     
-    #ed_write(fn,((2,"ABC"), (10,"DEFG")))
-    #ed_write(fn,((2,"ABC"), (29,"DEFG")))    
-    
-    
-    #ed_append(fn,"GUTI")
+    ed_write(fn,((2,"ABC"), (7,"ABC"), (10,"DEFG")))
+    ed_write(fn,((2,"ABC"), (29,"DEFG")))    
     
     '''
-    f = open(fn, "+w")
-    f.write("0123456789")
-    f.write("0123456789")
+        
+    print("\n")
     
+    ed_clearContent(fn)
     
-    f = open(fn, "+w")
-    f.write("a")
-    f.write("b")
-    f.close()
-    
-    f = open(fn, "+w")
-    f.write("c")
-    f.write("d")
-    f.close()
+    print(ed_append(fn,"0123456789"))
+    print(ed_append(fn,"0123456789\n"))
+    print(ed_append(fn,"0123456789"))
     '''
+
+    #ed_insert(fn,((2,"ABC"),))
+    #ed_insert(fn,((10,"DEFG"),))
+    #ed_insert(fn,((2,"ABC"),(2,"DEF"),(2,"GHI"),(2,"JKL"), (10,"MNO")))
     
 
 

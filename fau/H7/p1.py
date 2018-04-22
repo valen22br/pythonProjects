@@ -11,9 +11,6 @@ def image_load(filename):
 
 def convert_bw(img):
     img = img.astype('uint8')
-    gray = np.dot(img[..., :3], [0.2989, 0.5870, 0.1140])
-    gray = gray.astype('uint8')    
-    print(gray)
     b = np.mean(img, -1).astype('uint8')    
     b = np.repeat(b,3).reshape(480,800,3)  
     return b
@@ -22,10 +19,7 @@ def image_gen(file1, steps=30):
     """Generator for image arrays."""
     img1 = image_load(file1)     # load the two image files into ndarrays
     img2 =  convert_bw(img1);
-    
-   
-    
-    
+
     if img1.shape != img2.shape:
         print("Error: the two images have different shapes.", file=sys.stderr)
         exit(2)

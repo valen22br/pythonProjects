@@ -11,53 +11,19 @@ def image_load(filename):
 
 def convert_bw(img):
     img = img.astype('uint8')
-    print("Shape Original ndarray:")
-    print(img.shape)
-    print("Shape Original ndarray:")
-    print(img)
-    
     gray = np.dot(img[..., :3], [0.2989, 0.5870, 0.1140])
-    gray = gray.astype('uint8')
-    
+    gray = gray.astype('uint8')    
     print(gray)
-    
-    
-    #b = np.average(img, axis=1).astype('uint8')
-    #b = img.sum(axis=1)
-    #b = b.astype('uint8')
-    b = np.mean(img, -1).astype('uint8')
-    
-    
-    
-    
-    print("Shape b ndarray:")
-    print(b.shape)
-    print("Shape b ndarray:")
-    
-    b = np.repeat(b,3).reshape(480,800,3)
-    
+    b = np.mean(img, -1).astype('uint8')    
+    b = np.repeat(b,3).reshape(480,800,3)  
     return b
 
-    
-    
-    
-    #b[np.newaxis,:]
-    '''
-    
-    print(b)
-    print(b.shape)
-'''
-    
-
-
-
-
-def image_gen(file1, file2, steps=30):
+def image_gen(file1, steps=30):
     """Generator for image arrays."""
     img1 = image_load(file1)     # load the two image files into ndarrays
-    img2 = image_load(file2)
+    img2 =  convert_bw(img1);
     
-    img2 = convert_bw(img2);
+   
     
     
     if img1.shape != img2.shape:
@@ -80,7 +46,7 @@ fig = plt.figure()
 im = plt.imshow(image_load("florida-keys-800-480.jpg"), interpolation='none', animated=True)
 
 # the two images must have the same shape:
-imggen = image_gen("florida-keys-800-480.jpg", "Grand_Teton-800-480.jpg", steps=30)
+imggen = image_gen("florida-keys-800-480.jpg", steps=30)
 
 # updatefig is called for each frame, each update interval:
 def updatefig(*args):

@@ -35,7 +35,7 @@ class GoogleSpreadsheet:
             'sdl':['1270284303','Sorridents_Limao'],
             'ssm':['1981683637','SorridentsSAOMATHEUS'],
             'sem':['1448631721','SorridentsERMELINO_MATARAZO'],
-            'vss':['168276381',''],
+            'sl':['168276381','Sorridents_Lajeado'],
             'sdi':['1890566493','Sorridents_Itaqua'],
             'scs':['867401973','SorridentsChacaraStoAntonio'],
             'ssp':['622687295','SorridentsSAPOPEMBA'],
@@ -75,7 +75,6 @@ class GoogleSpreadsheet:
     def setSheetName(self, sheetName):
         self.SAMPLE_RANGE_NAME = sheetName+'!A1:C7'
         
-    
     def connectToSpreadsheet(self):
         creds = None
         # The file token.pickle stores the user's access and refresh tokens, and is

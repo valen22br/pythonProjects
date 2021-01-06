@@ -118,14 +118,23 @@ class GoogleSpreadsheet:
 def main():
     print('\nNumber of arguments:', len(sys.argv), 'arguments.', end='\n'*2)
     print('\nArgument List:', str(sys.argv), end='\n'*2)
-    clinicInitials = str(sys.argv[1])
+    # clinicInitials = 'sis'
+    if(len(sys.argv) > 1):
+        clinicInitials = str(sys.argv[1])
     print('\nArgument List:', str(sys.argv), end='\n'*2)
     
     spreadSheed = GoogleSpreadsheet()
     spreadSheed.getSheetIds()
     spreadSheed.getSpreadsheedID()
-    print('\nSheetID = ' + spreadSheed.getSheetID(clinicInitials), end = '\n'*2)
-    spreadSheed.setSheetName(spreadSheed.getSheetID(clinicInitials))
-    spreadSheed.connectToSpreadsheet()
+    try:
+        if(clinicInitials):
+            print('\nSheetID = ' + spreadSheed.getSheetID(clinicInitials), end = '\n'*2)
+            spreadSheed.setSheetName(spreadSheed.getSheetID(clinicInitials))
+        else:
+            print('\nSheetID = ' + spreadSheed.getSheetID('sis'), end = '\n'*2)
+            spreadSheed.setSheetName(spreadSheed.getSheetID('sis'))
+        spreadSheed.connectToSpreadsheet()
+    except NameError:
+        print('\nAn Exception flew by', end='\n'*2) 
     
 main()

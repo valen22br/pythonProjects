@@ -97,7 +97,10 @@ class GoogleSpreadsheet:
                 pickle.dump(creds, token)
     
         service = build('sheets', 'v4', credentials=creds)
+        
+        return service
     
+    def readSpreadsheet(self, service):
         # Call the Sheets API
         sheet = service.spreadsheets()
         result = sheet.values().get(spreadsheetId=self.spreadsheetID,
@@ -114,6 +117,9 @@ class GoogleSpreadsheet:
 #                print('%s, %s' % (row[0], row[4]))
     
     #if __name__ == '__main__':
+    
+    def writeToSpreadsheet(self, values):
+        pass
         
 def main():
     print('\nNumber of arguments:', len(sys.argv), 'arguments.', end='\n'*2)
@@ -133,7 +139,8 @@ def main():
         else:
             print('\nSheetID = ' + spreadSheed.getSheetID('sis'), end = '\n'*2)
             spreadSheed.setSheetName(spreadSheed.getSheetID('sis'))
-        spreadSheed.connectToSpreadsheet()
+        service = spreadSheed.connectToSpreadsheet()
+        spreadSheed.readSpreadsheet(service)
     except NameError:
         print('\nAn Exception flew by', end='\n'*2) 
     

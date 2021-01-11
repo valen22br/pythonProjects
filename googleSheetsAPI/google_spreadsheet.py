@@ -131,37 +131,16 @@ class GoogleSpreadsheet:
     
     
     def getRowCount(self, service, sheetName):
-#        sheet = service.spreadsheets()
-#        
-#        cell = sheet.getRange('A1')
-#        count = 0
-#        
-#        while ( cell.offset(ct, 0).getValue() != "" ):
-#            count++;
-#
-#        print('\n---  ' + next_row + '---\n')
-#
-#        return count;
         sheet = service.spreadsheets()
         result = sheet.values().get(spreadsheetId=self.spreadsheetID,
                                     range=sheetName,).execute()
         values = result.get('values', [])
         count = len(values)
-        
         print('\n--- ' + str(count) + ' ---\n')
-        
         return count
-    
-    
-        
-        #str_list = list(filter(None, sheet.col_values(1)))
-        #next_row =  str(len(str_list)+1)
-        
-        
         
     
     def writeToSpreadsheet(self, service):
-        
         range_ = self.SAMPLE_RANGE_NAME
         value_input_option = 'USER_ENTERED'
         insert_data_option = 'INSERT_ROWS'

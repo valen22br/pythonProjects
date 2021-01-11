@@ -13,13 +13,16 @@ import sys
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+from googleapiclient import discovery
+from pprint import pprint
 
 
 class GoogleSpreadsheet:
     def __init__(self):
         self.clientToSpreadsheetMap = {
             'ov':['360100036','OdontoVida'],
-            'rd':['1273125380','ANEO'],
+            #'rd':['1273125380','ANEO'],
+            'rd':['1385808257','Copy of ANEO'],
             'pi':['1450122021','PROImagem'],
             'smalto':['283209946','SMALTO'],
             'oc':['279638154','ORTOCOMPANY'],
@@ -61,7 +64,15 @@ class GoogleSpreadsheet:
         
         # self.SAMPLE_RANGE_NAME = 'Saldo à receber!A1:C7'
         
-        self.SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
+        #     'https://www.googleapis.com/auth/drive'
+        #     'https://www.googleapis.com/auth/drive.file'
+        #     'https://www.googleapis.com/auth/spreadsheets'
+        
+        self.SCOPES = [
+                'https://www.googleapis.com/auth/drive',
+                'https://www.googleapis.com/auth/drive.file',
+                'https://www.googleapis.com/auth/spreadsheets']
+
         
     def getSheetIds(self):
         print(self.clientToSpreadsheetMap)
@@ -73,7 +84,7 @@ class GoogleSpreadsheet:
         return self.clientToSpreadsheetMap[key][1]
     
     def setSheetName(self, sheetName):
-        self.SAMPLE_RANGE_NAME = sheetName+'!A1:C7'
+        self.SAMPLE_RANGE_NAME = sheetName+'!A1:F7'
         
     def connectToSpreadsheet(self):
         creds = None
@@ -118,8 +129,48 @@ class GoogleSpreadsheet:
     
     #if __name__ == '__main__':
     
-    def writeToSpreadsheet(self, values):
-        pass
+    
+    def getRowCount(self, service, sheetName):
+#        sheet = service.spreadsheets()
+#        
+#        cell = sheet.getRange('A1')
+#        count = 0
+#        
+#        while ( cell.offset(ct, 0).getValue() != "" ):
+#            count++;
+#
+#        print('\n---  ' + next_row + '---\n')
+#
+#        return count;
+        sheet = service.spreadsheets()
+        result = sheet.values().get(spreadsheetId=self.spreadsheetID,
+                                    range=sheetName,).execute()
+        values = result.get('values', [])
+        count = len(values)
+        
+        print('\n--- ' + str(count) + ' ---\n')
+        
+        return count
+    
+    
+        
+        #str_list = list(filter(None, sheet.col_values(1)))
+        #next_row =  str(len(str_list)+1)
+        
+        
+        
+    
+    def writeToSpreadsheet(self, service):
+        
+        range_ = self.SAMPLE_RANGE_NAME
+        value_input_option = 'USER_ENTERED'
+        insert_data_option = 'INSERT_ROWS'
+        value_range_body = {"values": [["01/10/2021", "Laudos", 5, "" , 0, "Gustavo"]]}
+        
+        request = service.spreadsheets().values().append(spreadsheetId=self.spreadsheetID, range=range_, valueInputOption=value_input_option, insertDataOption=insert_data_option, body=value_range_body)
+        response = request.execute()
+        
+        pprint(response)
         
 def main():
     print('\nNumber of arguments:', len(sys.argv), 'arguments.', end='\n'*2)
@@ -141,6 +192,9 @@ def main():
             spreadSheed.setSheetName(spreadSheed.getSheetID('sis'))
         service = spreadSheed.connectToSpreadsheet()
         spreadSheed.readSpreadsheet(service)
+        spreadSheed.getRowCount(service, spreadSheed.getSheetID(clinicInitials))
+        print('\n========================>>>>>>>>>>\n')
+        spreadSheed.writeToSpreadsheet(service)
     except NameError:
         print('\nAn Exception flew by', end='\n'*2) 
     

@@ -20,54 +20,49 @@ from pprint import pprint
 class GoogleSpreadsheet:
     def __init__(self):
         self.clientToSpreadsheetMap = {
-            'ov':['360100036','OdontoVida'],
-            #'rd':['1273125380','ANEO'],
-            'rd':['1385808257','Copy of ANEO'],
-            'pi':['1450122021','PROImagem'],
-            'smalto':['283209946','SMALTO'],
-            'oc':['279638154','ORTOCOMPANY'],
-            'fr':['167773507','FASCIO'],
-            'ci':['902420804','INTEGRA'],
-            'sdcisper':['1446124105',''],
-            'prox':['890581440','PRO X'],
-            'vs':['537195957','VISAO'],
-            'ra':['453344557','Renata ArtDente'],
-            'ex':['360100036','Excellence_Jaragua'],
-            'sdm':['709165713','SorridentsSAOMIGUEL_Centro'],
-            'svr':['10239997','SorridentsVILARE'],
-            'sdl':['1270284303','Sorridents_Limao'],
-            'ssm':['1981683637','SorridentsSAOMATHEUS'],
-            'sem':['1448631721','SorridentsERMELINO_MATARAZO'],
-            'sl':['168276381','Sorridents_Lajeado'],
-            'sdi':['1890566493','Sorridents_Itaqua'],
-            'scs':['867401973','SorridentsChacaraStoAntonio'],
-            'ssp':['622687295','SorridentsSAPOPEMBA'],
-            'sjh':['895482455','SorridentsJARDIM_HELENA'],
-            'crd':['1176660590',''],
-            'sco':['452429227','SORRIDENTSCOCAIA'],
-            'sgu':['289112547','SorridentsGUARULHOS'],
-            'smaior':['603875069','SORRISO_MAIOR'],
-            'sgo':['1571258573','SorridentsGOIANIA_CENTRO'],
-            'sdp':['389745783','SORRIDENTS_SANTANADEPARNAIBA'],
-            'svd':['610182461','SORRIDENTS_VILA_DIVA'],
-            'srv':['229236959','SORRIDENTS_RIO_VERDE'],
-            'exo':['318979593','ExcellenceOESTE'],
-            'sdme':['2086549618','SorridentsSAOMIGUEL_Estacao'],
-            'sgon':['307959967','SorridentsGO_NovoHorizonte'],
-            'slsm':['1163021938','Sorridents_LAGOA_SAOMATHEUS'],
-            'sbp':['343540097','SORRIDENTS_BRAG_PAUL'],
-            'scl':['992104235','SORRIDENTS_CIDADE_LIVRE'],
-            'exx':['734273943','ExcellenceXAXIM'],
-            'sis':['1656686275','SORRIDENTS_ITAIM_SILVATELES']
-        }
+            'ov':(['360100036','OdontoVida'],[0,0,0,0,0,0]),
+            #'rd':(['1273125380','ANEO'],[0,0,0,0,0,0]),
+            'rd':(['1385808257','Copy of ANEO'],[6,120,6,6,10,15]),
+            'pi':(['1450122021','PROImagem'],[0,0,0,0,0,0]),
+            'smalto':(['283209946','SMALTO'],[0,0,0,0,0,0]),
+            'oc':(['279638154','ORTOCOMPANY'],[0,0,0,0,0,0]),
+            'fr':(['167773507','FASCIO'],[0,0,0,0,0,0]),
+            'ci':(['902420804','INTEGRA'],[0,0,0,0,0,0]),
+            'sdcisper':(['1446124105',''],[0,0,0,0,0,0]),
+            'prox':(['890581440','PRO X'],[0,0,0,0,0,0]),
+            'vs':(['537195957','VISAO'],[0,0,0,0,0,0]),
+            'ra':(['453344557','Renata ArtDente'],[0,0,0,0,0,0]),
+            'ex':(['360100036','Excellence_Jaragua'],[0,0,0,0,0,0]),
+            'sdm':(['709165713','SorridentsSAOMIGUEL_Centro'],[0,0,0,0,0,0]),
+            'svr':(['10239997','SorridentsVILARE'],[0,0,0,0,0,0]),
+            'sdl':(['1270284303','Sorridents_Limao'],[0,0,0,0,0,0]),
+            'ssm':(['1981683637','SorridentsSAOMATHEUS'],[0,0,0,0,0,0]),
+            'sem':(['1448631721','SorridentsERMELINO_MATARAZO'],[0,0,0,0,0,0]),
+            'sl':(['168276381','Sorridents_Lajeado'],[0,0,0,0,0,0]),
+            'sdi':(['1890566493','Sorridents_Itaqua'],[0,0,0,0,0,0]),
+            'scs':(['867401973','SorridentsChacaraStoAntonio'],[0,0,0,0,0,0]),
+            'ssp':(['622687295','SorridentsSAPOPEMBA'],[0,0,0,0,0,0]),
+            'sjh':(['895482455','SorridentsJARDIM_HELENA'],[0,0,0,0,0,0]),
+            'crd':(['1176660590',''],[0,0,0,0,0,0]),
+            'sco':(['452429227','SORRIDENTSCOCAIA'],[0,0,0,0,0,0]),
+            'sgu':(['289112547','SorridentsGUARULHOS'],[0,0,0,0,0,0]),
+            'smaior':(['603875069','SORRISO_MAIOR'],[0,0,0,0,0,0]),
+            'sgo':(['1571258573','SorridentsGOIANIA_CENTRO'],[0,0,0,0,0,0]),
+            'sdp':(['389745783','SORRIDENTS_SANTANADEPARNAIBA'],[0,0,0,0,0,0]),
+            'svd':(['610182461','SORRIDENTS_VILA_DIVA'],[0,0,0,0,0,0]),
+            'srv':(['229236959','SORRIDENTS_RIO_VERDE'],[0,0,0,0,0,0]),
+            'exo':(['318979593','ExcellenceOESTE'],[0,0,0,0,0,0]),
+            'sdme':(['2086549618','SorridentsSAOMIGUEL_Estacao'],[0,0,0,0,0,0]),
+            'sgon':(['307959967','SorridentsGO_NovoHorizonte'],[0,0,0,0,0,0]),
+            'slsm':(['1163021938','Sorridents_LAGOA_SAOMATHEUS'],[0,0,0,0,0,0]),
+            'sbp':(['343540097','SORRIDENTS_BRAG_PAUL'],[0,0,0,0,0,0]),
+            'scl':(['992104235','SORRIDENTS_CIDADE_LIVRE'],[0,0,0,0,0,0]),
+            'exx':(['734273943','ExcellenceXAXIM'],[0,0,0,0,0,0]),
+            'sis':(['1656686275','SORRIDENTS_ITAIM_SILVATELES'],[0,0,0,0,0,0])
+         }
         self.spreadsheetID = '1n7fNL39lksm8Vua7jBW8CaTmqGi7Y-_s6ITB0JPxGOk'
         
-        # self.SAMPLE_RANGE_NAME = 'Saldo à receber!A1:C7'
-        
-        #     'https://www.googleapis.com/auth/drive'
-        #     'https://www.googleapis.com/auth/drive.file'
-        #     'https://www.googleapis.com/auth/spreadsheets'
-        
+       
         self.SCOPES = [
                 'https://www.googleapis.com/auth/drive',
                 'https://www.googleapis.com/auth/drive.file',
@@ -75,16 +70,40 @@ class GoogleSpreadsheet:
 
         
     def getSheetIds(self):
-        print(self.clientToSpreadsheetMap)
+        for x in self.clientToSpreadsheetMap:
+            print('\n' + x + ' ==> ' + str(self.clientToSpreadsheetMap[x]), end = '\n')
+        #print(self.clientToSpreadsheetMap)
+        for x in self.clientToSpreadsheetMap:
+            print('\n' + x + ' ==> ' + str(self.clientToSpreadsheetMap[x]), end = '\n')
         
     def getSpreadsheedID(self):
         print(self.spreadsheetID)
         
     def getSheetID(self, key):
-        return self.clientToSpreadsheetMap[key][1]
+        return self.clientToSpreadsheetMap[key][0][1]
     
     def setSheetName(self, sheetName):
         self.SAMPLE_RANGE_NAME = sheetName+'!A1:F7'
+        
+    def getValuesList(self, key):
+        return self.clientToSpreadsheetMap[key][1]
+    
+    def getFormula(self, key, actualRow):
+        valuesList = self.getValuesList(key)
+        nextRow = str(actualRow + 1)
+        actualRow = str(actualRow)
+        formula = ('='
+        'IF(ISBLANK(C'+ nextRow + '),"",'
+        'IF(EXACT("laudos",B'+ nextRow + '),((D'+ actualRow + '+(C'+ nextRow + '*'+ str(valuesList[4]) +'))-E'+ nextRow + '),'
+        'IF(EXACT("tomo",B'+ nextRow + '),((D'+ actualRow + '+(C'+ nextRow + '*'+ str(valuesList[1]) +'))-E'+ nextRow + '),'
+        'IF(EXACT("conversao",B'+ nextRow + '),((D'+ actualRow + '+(C'+ nextRow + '*'+ str(valuesList[5]) +'))-E'+ nextRow + '),'
+        'IF(EXACT("tomo total",B'+ nextRow + '),((D'+ actualRow + '+(C'+ nextRow + '*'+ str(valuesList[1]) +'))-E'+ nextRow + '),'
+        'IF(EXACT("periapicais",B'+ nextRow + '),((D'+ actualRow + '+(C'+ nextRow + '*'+ str(valuesList[2]) +'))-E'+ nextRow + '),'
+        '((D'+ actualRow + '+(C'+ nextRow + '*'+ str(valuesList[0]) +'))-E'+ nextRow + ')))))))''')
+        print(formula)
+        return formula
+        
+        
         
     def connectToSpreadsheet(self):
         creds = None
@@ -140,11 +159,11 @@ class GoogleSpreadsheet:
         return count
         
     
-    def writeToSpreadsheet(self, service):
+    def writeToSpreadsheet(self, service, data, jobDesc, value, formula, received, patientNames):
         range_ = self.SAMPLE_RANGE_NAME
         value_input_option = 'USER_ENTERED'
         insert_data_option = 'INSERT_ROWS'
-        value_range_body = {"values": [["01/10/2021", "Laudos", 5, "" , 0, "Gustavo"]]}
+        value_range_body = {"values": [[data, jobDesc, value, formula , received, patientNames]]}
         
         request = service.spreadsheets().values().append(spreadsheetId=self.spreadsheetID, range=range_, valueInputOption=value_input_option, insertDataOption=insert_data_option, body=value_range_body)
         response = request.execute()
@@ -172,8 +191,9 @@ def main():
         service = spreadSheed.connectToSpreadsheet()
         spreadSheed.readSpreadsheet(service)
         spreadSheed.getRowCount(service, spreadSheed.getSheetID(clinicInitials))
+        formula = spreadSheed.getFormula(clinicInitials, spreadSheed.getRowCount(service, spreadSheed.getSheetID(clinicInitials)))
         print('\n========================>>>>>>>>>>\n')
-        spreadSheed.writeToSpreadsheet(service)
+        spreadSheed.writeToSpreadsheet(service, '01/12/2021', 'laudos', 10, formula, 0, 'Luis Gustavo')
     except NameError:
         print('\nAn Exception flew by', end='\n'*2) 
     

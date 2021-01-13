@@ -19,6 +19,12 @@ from pprint import pprint
 
 class GoogleSpreadsheet:
     def __init__(self):
+        
+        """
+        Structure
+        {([SheetId, SheetName],[Tracados, Tomografia, Periapical, Carpal, Laudo, Conversao])}
+        """
+
         self.clientToSpreadsheetMap = {
             'ov':(['360100036','OdontoVida'],[0,0,0,0,0,0]),
             #'rd':(['1273125380','ANEO'],[0,0,0,0,0,0]),

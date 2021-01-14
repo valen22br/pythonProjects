@@ -15,6 +15,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from googleapiclient import discovery
 from pprint import pprint
+from terminal_commands import shellCommand
 
 
 class GoogleSpreadsheet:
@@ -108,8 +109,14 @@ class GoogleSpreadsheet:
         '((D'+ actualRow + '+(C'+ nextRow + '*'+ str(valuesList[0]) +'))-E'+ nextRow + ')))))))''')
         print(formula)
         return formula
-        
-        
+    
+    def getLaudos():
+        commandLine = "find /Users/valen/Desktop/work -name '*.imp' | awk -F'/' '{print $NF}'"
+        myList = shellCommand(commandLine, True)
+        print('\n' + str(len(myList)), end='\n'*2)
+        for x in myList:
+            print(x)
+        print('\n')
         
     def connectToSpreadsheet(self):
         creds = None
@@ -165,7 +172,9 @@ class GoogleSpreadsheet:
         return count
         
     
-    def writeToSpreadsheet(self, service, data, jobDesc, value, formula, received, patientNames):
+    def writeToSpreadsheet(self, service, data, jobDesc, value, formula, received):
+        commandLine = "find /Users/valen/Desktop/work -name '*.imp' | awk -F'/' '{print $NF}'"
+        patientNames = shellCommand(commandLine, False)
         range_ = self.SAMPLE_RANGE_NAME
         value_input_option = 'USER_ENTERED'
         insert_data_option = 'INSERT_ROWS'
@@ -175,6 +184,8 @@ class GoogleSpreadsheet:
         response = request.execute()
         
         pprint(response)
+        
+
         
 def main():
     print('\nNumber of arguments:', len(sys.argv), 'arguments.', end='\n'*2)
@@ -199,7 +210,7 @@ def main():
         spreadSheed.getRowCount(service, spreadSheed.getSheetID(clinicInitials))
         formula = spreadSheed.getFormula(clinicInitials, spreadSheed.getRowCount(service, spreadSheed.getSheetID(clinicInitials)))
         print('\n========================>>>>>>>>>>\n')
-        spreadSheed.writeToSpreadsheet(service, '01/12/2021', 'laudos', 10, formula, 0, 'Luis Gustavo')
+        spreadSheed.writeToSpreadsheet(service, '01/12/2021', 'laudos', 10, formula, 0)
     except NameError:
         print('\nAn Exception flew by', end='\n'*2) 
     

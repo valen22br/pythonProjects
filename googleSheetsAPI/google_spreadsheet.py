@@ -107,16 +107,17 @@ class GoogleSpreadsheet:
         'IF(EXACT("tomo total",B'+ nextRow + '),((D'+ actualRow + '+(C'+ nextRow + '*'+ str(valuesList[1]) +'))-E'+ nextRow + '),'
         'IF(EXACT("periapicais",B'+ nextRow + '),((D'+ actualRow + '+(C'+ nextRow + '*'+ str(valuesList[2]) +'))-E'+ nextRow + '),'
         '((D'+ actualRow + '+(C'+ nextRow + '*'+ str(valuesList[0]) +'))-E'+ nextRow + ')))))))''')
-        print(formula)
+#        print(formula)
         return formula
     
-    def getLaudos():
-        commandLine = "find /Users/valen/Desktop/work -name '*.imp' | awk -F'/' '{print $NF}'"
-        myList = shellCommand(commandLine, True)
-        print('\n' + str(len(myList)), end='\n'*2)
-        for x in myList:
-            print(x)
-        print('\n')
+    def getLaudos(self, fileExtension):
+        commandLine = "find /Users/valen/Desktop/work -name '*." + fileExtension + "' | awk -F'/' '{print $NF}'"
+        outputList = shellCommand(commandLine, True)
+#        print('\n' + str(len(outputList)), end='\n'*2)
+#        for x in outputList:
+#            print(x)
+#        print('\n')
+        return outputList
         
     def connectToSpreadsheet(self):
         creds = None
@@ -172,9 +173,13 @@ class GoogleSpreadsheet:
         return count
         
     
-    def writeToSpreadsheet(self, service, data, jobDesc, value, formula, received):
-        commandLine = "find /Users/valen/Desktop/work -name '*.imp' | awk -F'/' '{print $NF}'"
-        patientNames = shellCommand(commandLine, False)
+    def writeToSpreadsheet(self, service, data, jobDesc, value, formula, received, fileExtension):
+#        commandLine = "find /Users/valen/Desktop/work -name '*.imp' | awk -F'/' '{print $NF}'"
+#        patientNames = shellCommand(commandLine, False)
+        laudos = self.getLaudos(fileExtension)
+
+        patientNames = ' -- '.join(map(str, laudos))
+        
         range_ = self.SAMPLE_RANGE_NAME
         value_input_option = 'USER_ENTERED'
         insert_data_option = 'INSERT_ROWS'
@@ -195,22 +200,33 @@ def main():
         clinicInitials = str(sys.argv[1])
     print('\nArgument List:', str(sys.argv), end='\n'*2)
     
-    spreadSheed = GoogleSpreadsheet()
-    spreadSheed.getSheetIds()
-    spreadSheed.getSpreadsheedID()
+    spreadSheet = GoogleSpreadsheet()
+#    spreadSheet.getSheetIds()
+#    spreadSheet.getSpreadsheedID()
     try:
         if(clinicInitials):
-            print('\nSheetID = ' + spreadSheed.getSheetID(clinicInitials), end = '\n'*2)
-            spreadSheed.setSheetName(spreadSheed.getSheetID(clinicInitials))
+            print('\nSheetID = ' + spreadSheet.getSheetID(clinicInitials), end = '\n'*2)
+            spreadSheet.setSheetName(spreadSheet.getSheetID(clinicInitials))
         else:
-            print('\nSheetID = ' + spreadSheed.getSheetID('sis'), end = '\n'*2)
-            spreadSheed.setSheetName(spreadSheed.getSheetID('sis'))
-        service = spreadSheed.connectToSpreadsheet()
-        spreadSheed.readSpreadsheet(service)
-        spreadSheed.getRowCount(service, spreadSheed.getSheetID(clinicInitials))
-        formula = spreadSheed.getFormula(clinicInitials, spreadSheed.getRowCount(service, spreadSheed.getSheetID(clinicInitials)))
+            print('\nSheetID = ' + spreadSheet.getSheetID('sis'), end = '\n'*2)
+            spreadSheet.setSheetName(spreadSheet.getSheetID('sis'))
+        service = spreadSheet.connectToSpreadsheet()
+        spreadSheet.readSpreadsheet(service)
+#        spreadSheet.getRowCount(service, spreadSheet.getSheetID(clinicInitials))
+        
         print('\n========================>>>>>>>>>>\n')
-        spreadSheed.writeToSpreadsheet(service, '01/12/2021', 'laudos', 10, formula, 0)
+
+        laudos = spreadSheet.getLaudos('imp')
+        tracados = spreadSheet.getLaudos('rcf')
+        
+        if '' not in laudos:
+            formula = spreadSheet.getFormula(clinicInitials, spreadSheet.getRowCount(service, spreadSheet.getSheetID(clinicInitials)))
+            spreadSheet.writeToSpreadsheet(service, '01/12/2021', 'laudos', len(laudos), formula, 0, 'imp')
+            
+        if '' not in tracados:
+            formula = spreadSheet.getFormula(clinicInitials, spreadSheet.getRowCount(service, spreadSheet.getSheetID(clinicInitials)))
+            spreadSheet.writeToSpreadsheet(service, '01/12/2021', 'tracados', len(tracados), formula, 0, 'rcf')
+        
     except NameError:
         print('\nAn Exception flew by', end='\n'*2) 
     

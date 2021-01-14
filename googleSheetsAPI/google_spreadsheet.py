@@ -198,6 +198,7 @@ def main():
     # clinicInitials = 'sis'
     if(len(sys.argv) > 1):
         clinicInitials = str(sys.argv[1])
+        data = str(sys.argv[2])
     print('\nArgument List:', str(sys.argv), end='\n'*2)
     
     spreadSheet = GoogleSpreadsheet()
@@ -221,11 +222,11 @@ def main():
         
         if '' not in laudos:
             formula = spreadSheet.getFormula(clinicInitials, spreadSheet.getRowCount(service, spreadSheet.getSheetID(clinicInitials)))
-            spreadSheet.writeToSpreadsheet(service, '01/12/2021', 'laudos', len(laudos), formula, 0, 'imp')
+            spreadSheet.writeToSpreadsheet(service, data, 'laudos', len(laudos), formula, 0, 'imp')
             
         if '' not in tracados:
             formula = spreadSheet.getFormula(clinicInitials, spreadSheet.getRowCount(service, spreadSheet.getSheetID(clinicInitials)))
-            spreadSheet.writeToSpreadsheet(service, '01/12/2021', 'tracados', len(tracados), formula, 0, 'rcf')
+            spreadSheet.writeToSpreadsheet(service, data, 'tracados', len(tracados), formula, 0, 'rcf')
         
     except NameError:
         print('\nAn Exception flew by', end='\n'*2) 

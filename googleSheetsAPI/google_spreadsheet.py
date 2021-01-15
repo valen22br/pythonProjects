@@ -10,6 +10,7 @@ from __future__ import print_function
 import pickle
 import os.path
 import sys
+import time
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
@@ -35,7 +36,7 @@ class GoogleSpreadsheet:
             'oc':(['279638154','ORTOCOMPANY'],[6,120,6,6,8,15]),
             'fr':(['167773507','FASCIO'],[6,120,6,6,10,15]),
             'ci':(['902420804','INTEGRA'],[6,120,6,6,10,15]),
-            'sdcisper':(['1446124105',''],[5,120,5,5,8,15]),
+            'sdcisper':(['1446124105','SORRIDENTS_CISPER'],[5,120,5,5,8,15]),
             'prox':(['890581440','PRO X'],[6,120,6,6,10,15]),
             'vs':(['537195957','VISAO'],[5,120,5,5,8,15]),
             'ra':(['453344557','Renata ArtDente'],[6,120,6,6,10,15]),
@@ -113,10 +114,10 @@ class GoogleSpreadsheet:
     def getLaudos(self, fileExtension):
         commandLine = "find /Users/valen/Desktop/work -name '*." + fileExtension + "' | awk -F'/' '{print $NF}'"
         outputList = shellCommand(commandLine, True)
-#        print('\n' + str(len(outputList)), end='\n'*2)
-#        for x in outputList:
-#            print(x)
-#        print('\n')
+        return outputList
+    
+    def executeShellScript(self, commandLine):
+        outputList = shellCommand(commandLine, True)
         return outputList
         
     def connectToSpreadsheet(self):
@@ -189,6 +190,7 @@ class GoogleSpreadsheet:
         response = request.execute()
         
         pprint(response)
+        return response
         
 
         
@@ -202,8 +204,6 @@ def main():
     print('\nArgument List:', str(sys.argv), end='\n'*2)
     
     spreadSheet = GoogleSpreadsheet()
-#    spreadSheet.getSheetIds()
-#    spreadSheet.getSpreadsheedID()
     try:
         if(clinicInitials):
             print('\nSheetID = ' + spreadSheet.getSheetID(clinicInitials), end = '\n'*2)
@@ -213,20 +213,38 @@ def main():
             spreadSheet.setSheetName(spreadSheet.getSheetID('sis'))
         service = spreadSheet.connectToSpreadsheet()
         spreadSheet.readSpreadsheet(service)
-#        spreadSheet.getRowCount(service, spreadSheet.getSheetID(clinicInitials))
         
-        print('\n========================>>>>>>>>>>\n')
-
         laudos = spreadSheet.getLaudos('imp')
         tracados = spreadSheet.getLaudos('rcf')
+        response = ''
         
         if '' not in laudos:
             formula = spreadSheet.getFormula(clinicInitials, spreadSheet.getRowCount(service, spreadSheet.getSheetID(clinicInitials)))
-            spreadSheet.writeToSpreadsheet(service, date, 'laudos', len(laudos), formula, 0, 'imp')
+            response = spreadSheet.writeToSpreadsheet(service, date, 'laudos', len(laudos), formula, 0, 'imp')
             
         if '' not in tracados:
             formula = spreadSheet.getFormula(clinicInitials, spreadSheet.getRowCount(service, spreadSheet.getSheetID(clinicInitials)))
-            spreadSheet.writeToSpreadsheet(service, date, 'tracados', len(tracados), formula, 0, 'rcf')
+            response = spreadSheet.writeToSpreadsheet(service, date, 'tracados', len(tracados), formula, 0, 'rcf')
+        
+        time.sleep(5)
+        
+        if(response != ''):
+            # delete all .pdf, .imp and .rcf files
+            commandLine = "rm -rf /Users/valen/Desktop/work/*21.zip"
+            spreadSheet.executeShellScript(commandLine)
+            time.sleep(1)
+            
+            commandLine = "rm -rf /Users/valen/Desktop/work/*.pdf"
+            spreadSheet.executeShellScript(commandLine)
+            time.sleep(1)
+            
+            commandLine = "rm -rf /Users/valen/Desktop/work/*.imp"
+            spreadSheet.executeShellScript(commandLine)
+            time.sleep(1)
+            
+            commandLine = "rm -rf /Users/valen/Desktop/work/*.rcf"
+            spreadSheet.executeShellScript(commandLine)
+#            time.sleep(1)
         
     except NameError:
         print('\nAn Exception flew by', end='\n'*2) 

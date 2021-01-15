@@ -232,15 +232,12 @@ def main():
             # delete all .pdf, .imp and .rcf files
             commandLine = "rm -rf /Users/valen/Desktop/work/*21.zip"
             spreadSheet.executeShellScript(commandLine)
-            time.sleep(1)
             
             commandLine = "rm -rf /Users/valen/Desktop/work/*.pdf"
             spreadSheet.executeShellScript(commandLine)
-            time.sleep(1)
             
             commandLine = "rm -rf /Users/valen/Desktop/work/*.imp"
             spreadSheet.executeShellScript(commandLine)
-            time.sleep(1)
             
             commandLine = "rm -rf /Users/valen/Desktop/work/*.rcf"
             spreadSheet.executeShellScript(commandLine)

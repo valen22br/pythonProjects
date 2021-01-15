@@ -241,7 +241,6 @@ def main():
             
             commandLine = "rm -rf /Users/valen/Desktop/work/*.rcf"
             spreadSheet.executeShellScript(commandLine)
-#            time.sleep(1)
         
     except NameError:
         print('\nAn Exception flew by', end='\n'*2) 

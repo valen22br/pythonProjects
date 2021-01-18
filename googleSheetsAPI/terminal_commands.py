@@ -11,18 +11,22 @@ import subprocess
 def shellCommand(command, listOutput = False):
     out = subprocess.Popen([command], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
     output = out.communicate()
-    output = str(output[0])
-    output = output.replace('b', '').replace('\'', '').replace('\\n', '|')
+    output = output[0].decode('utf-8')
+    output = output.replace('\n', '|')
     output = output[0:len(output)-1]
     if(listOutput):
         return output.split('|')
     else:
         return output
 
-commandLine = "find /Users/valen/Desktop/work -name '*.imp' | awk -F'/' '{print $NF}'"
+def ShellBashScriptExecution(command):
+    out = subprocess.call(command)
+    return out
+
+commandLine = "find /Users/valen/Desktop/work -name '*.rcf' | awk -F'/' '{print $NF}'"
 myList = shellCommand(commandLine, True)
-#print(myList)
 print('\n' + str(len(myList)), end='\n'*2)
 for x in myList:
     print(x)
 print('\n')
+

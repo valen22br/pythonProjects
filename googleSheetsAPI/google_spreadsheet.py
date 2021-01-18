@@ -212,7 +212,6 @@ def main():
             print('\nSheetID = ' + spreadSheet.getSheetID('sis'), end = '\n'*2)
             spreadSheet.setSheetName(spreadSheet.getSheetID('sis'))
         service = spreadSheet.connectToSpreadsheet()
-        spreadSheet.readSpreadsheet(service)
         
         laudos = spreadSheet.getLaudos('imp')
         tracados = spreadSheet.getLaudos('rcf')

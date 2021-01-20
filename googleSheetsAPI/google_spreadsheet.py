@@ -17,6 +17,7 @@ from google.auth.transport.requests import Request
 from googleapiclient import discovery
 from pprint import pprint
 from terminal_commands import shellCommand
+from pdf_module_by_valen import PDFSignature
 
 
 class GoogleSpreadsheet:
@@ -67,6 +68,7 @@ class GoogleSpreadsheet:
             'scl':(['992104235','SORRIDENTS_CIDADE_LIVRE'],[5,120,5,5,8,15]),
             'exx':(['734273943','ExcellenceXAXIM'],[5,120,5,5,8,15]),
             'sis':(['1656686275','SORRIDENTS_ITAIM_SILVATELES'],[6,120,6,6,9,15]),
+            'test':(['1413480013','test'],[6,120,6,6,8,15]),
          }
         self.spreadsheetID = '1n7fNL39lksm8Vua7jBW8CaTmqGi7Y-_s6ITB0JPxGOk'
         
@@ -205,6 +207,20 @@ def main():
     
     spreadSheet = GoogleSpreadsheet()
     try:
+
+        #Sign PDF Files
+        PDFSignatureObject = PDFSignature();
+        PDFSignatureObject.prepareFilesToBeSigned()
+
+        pdfFileList = PDFSignatureObject.getPDFFilesToSign()
+
+        for fileName in pdfFileList:
+            print(fileName)
+            PDFSignatureObject.signPDF(fileName)
+
+        PDFSignatureObject.cleanUpAfterPDFManipulation(pdfFileList)
+        PDFSignatureObject.zipFiles()
+
         if(clinicInitials):
             print('\nSheetID = ' + spreadSheet.getSheetID(clinicInitials), end = '\n'*2)
             spreadSheet.setSheetName(spreadSheet.getSheetID(clinicInitials))
@@ -225,22 +241,22 @@ def main():
             formula = spreadSheet.getFormula(clinicInitials, spreadSheet.getRowCount(service, spreadSheet.getSheetID(clinicInitials)))
             response = spreadSheet.writeToSpreadsheet(service, date, 'tracados', len(tracados), formula, 0, 'rcf')
         
-        time.sleep(5)
-        
-        if(response != ''):
-            # delete all .pdf, .imp and .rcf files
-            commandLine = "rm -rf /Users/valen/Desktop/work/*21.zip"
-            spreadSheet.executeShellScript(commandLine)
-            
-            commandLine = "rm -rf /Users/valen/Desktop/work/*.pdf"
-            spreadSheet.executeShellScript(commandLine)
-            
-            commandLine = "rm -rf /Users/valen/Desktop/work/*.imp"
-            spreadSheet.executeShellScript(commandLine)
-            
-            commandLine = "rm -rf /Users/valen/Desktop/work/*.rcf"
-            spreadSheet.executeShellScript(commandLine)
-        
+#        time.sleep(5)
+
+#        if(response != ''):
+#            # delete all .pdf, .imp and .rcf files
+#            commandLine = "rm -rf /Users/valen/Desktop/work/*21.zip"
+#            spreadSheet.executeShellScript(commandLine)
+
+#            commandLine = "rm -rf /Users/valen/Desktop/work/*.pdf"
+#            spreadSheet.executeShellScript(commandLine)
+
+#            commandLine = "rm -rf /Users/valen/Desktop/work/*.imp"
+#            spreadSheet.executeShellScript(commandLine)
+
+#            commandLine = "rm -rf /Users/valen/Desktop/work/*.rcf"
+#            spreadSheet.executeShellScript(commandLine)
+
     except NameError:
         print('\nAn Exception flew by', end='\n'*2) 
     

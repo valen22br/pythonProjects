@@ -77,18 +77,18 @@ class PDFSignature:
         shellCommand(commandLine, True)
         
 
-def main():
-    
-    PDFSignatureObject = PDFSignature();
-    PDFSignatureObject.prepareFilesToBeSigned()
-
-    pdfFileList = PDFSignatureObject.getPDFFilesToSign()
-    
-    for fileName in pdfFileList:
-        print(fileName)
-        PDFSignatureObject.signPDF(fileName)
-        
-    PDFSignatureObject.cleanUpAfterPDFManipulation(pdfFileList)
-    PDFSignatureObject.zipFiles()
-    
-main()
+#def main():
+#
+#    PDFSignatureObject = PDFSignature();
+#    PDFSignatureObject.prepareFilesToBeSigned()
+#
+#    pdfFileList = PDFSignatureObject.getPDFFilesToSign()
+#
+#    for fileName in pdfFileList:
+#        print(fileName)
+#        PDFSignatureObject.signPDF(fileName)
+#
+#    PDFSignatureObject.cleanUpAfterPDFManipulation(pdfFileList)
+#    PDFSignatureObject.zipFiles()
+#
+#main()

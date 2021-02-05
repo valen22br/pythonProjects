@@ -54,6 +54,7 @@ class GoogleSpreadsheet:
             'sjh':(['895482455','SorridentsJARDIM_HELENA'],[6,120,6,6,8,15]),
             'crd':(['1176660590','CRD'],[6,120,6,6,8,15]),
             'sco':(['452429227','SORRIDENTSCOCAIA'],[5,120,5,5,8,15]),
+            'sgv':(['1603591808','SorridentsGARAVELO'],[5,120,5,5,8,15]),
             'sgu':(['289112547','SorridentsGUARULHOS'],[5,120,5,5,8,15]),
             'smaior':(['603875069','SORRISO_MAIOR'],[5,120,5,5,8,15]),
             'sgo':(['1571258573','SorridentsGOIANIA_CENTRO'],[5,120,5,5,8,15]),

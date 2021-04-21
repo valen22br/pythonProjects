@@ -71,6 +71,7 @@ class GoogleSpreadsheet:
             'sis':(['1656686275','SORRIDENTS_ITAIM_SILVATELES'],[8,120,8,8,12,15]),
             'sist':(['148500071','SORRIDENTS_ITAIM_SILVATELES_TIBURCIO'],[8,120,8,8,12,15]),
             'ssc':(['786524798','SORRIDENTS_CURUCA'],[8,120,8,8,12,15]),
+            'sgva':(['921845397','SORRIDENTS_GETULIO_VARGAS'],[8,120,8,8,12,15]),
             'test':(['1413480013','test'],[8,120,8,8,12,15]),
          }
         self.spreadsheetID = '1n7fNL39lksm8Vua7jBW8CaTmqGi7Y-_s6ITB0JPxGOk'

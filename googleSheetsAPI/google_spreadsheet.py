@@ -204,7 +204,7 @@ class GoogleSpreadsheet:
 def main():
     print('\nNumber of arguments:', len(sys.argv), 'arguments.', end='\n'*2)
     print('\nArgument List:', str(sys.argv), end='\n'*2)
-    # clinicInitials = 'sis'
+    # clinicInitials = 'test'
     if(len(sys.argv) > 1):
         clinicInitials = str(sys.argv[1])
         date = str(sys.argv[2])

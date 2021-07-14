@@ -76,6 +76,7 @@ class GoogleSpreadsheet:
             'sse':(['2004635372','SORRIDENTS_SUMARE'],[8,120,8,8,12,15]),
             'sivv':(['342275993','SORRIDENTS_ITAVUVU'],[8,120,8,8,12,15]),
             'sjo':(['1540311325','SORRIDENTS_JARDIM_ODETE'],[8,120,8,8,12,15]),
+            'spt':(['694491676','SORRIDENTS_PIRATININGA'],[8,120,8,8,12,15]),
             'test':(['1413480013','test'],[8,120,8,8,12,15]),
          }
         self.spreadsheetID = '1n7fNL39lksm8Vua7jBW8CaTmqGi7Y-_s6ITB0JPxGOk'

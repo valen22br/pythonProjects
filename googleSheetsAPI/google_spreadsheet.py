@@ -64,7 +64,7 @@ class GoogleSpreadsheet:
             'exo':(['318979593','ExcellenceOESTE'],[8,120,8,8,12,15]),
             'sdme':(['2086549618','SorridentsSAOMIGUEL_Estacao'],[8,120,8,8,12,15]),
             'sgon':(['307959967','SorridentsGO_NovoHorizonte'],[8,120,8,8,12,15]),
-            'slsm':(['1163021938','Sorridents_LAGOA_SAOMATHEUS'],[8,120,8,8,12,15]),
+            'slsm':(['1163021938','Sorridents_LARGO_SAOMATHEUS'],[8,120,8,8,12,15]),
             'sbp':(['343540097','SORRIDENTS_BRAG_PAUL'],[8,120,8,8,12,15]),
             'scl':(['992104235','SORRIDENTS_CIDADE_LIVRE'],[8,120,8,8,12,15]),
             'exx':(['734273943','ExcellenceXAXIM'],[8,120,8,8,12,15]),

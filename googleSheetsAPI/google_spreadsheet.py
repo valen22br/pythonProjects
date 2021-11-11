@@ -69,7 +69,7 @@ class GoogleSpreadsheet:
             'scl':(['992104235','SORRIDENTS_CIDADE_LIVRE'],[8,120,8,8,12,15]),
             'exx':(['734273943','ExcellenceXAXIM'],[8,120,8,8,12,15]),
             'sis':(['1656686275','SORRIDENTS_ITAIM_SILVATELES'],[8,120,8,8,12,15]),
-            'sist':(['148500071','SORRIDENTS_ITAIM_SILVATELES_TIBURCIO'],[8,120,8,8,12,15]),
+            'sist':(['148500071','SORRIDENTS_ITAIM_TIBURCIO'],[8,120,8,8,12,15]),
             'ssc':(['786524798','SORRIDENTS_CURUCA'],[8,120,8,8,12,15]),
             'sgva':(['921845397','SORRIDENTS_GETULIO_VARGAS'],[8,120,8,8,12,15]),
             'stp':(['1619069009','SORRIDENTS_TATUAPE'],[8,120,8,8,12,15]),

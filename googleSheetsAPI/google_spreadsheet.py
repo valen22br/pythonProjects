@@ -71,6 +71,7 @@ class GoogleSpreadsheet:
             'sis':(['1656686275','SORRIDENTS_ITAIM_SILVATELES'],[8,120,8,8,12,15]),
             'sist':(['148500071','SORRIDENTS_ITAIM_TIBURCIO'],[8,120,8,8,12,15]),
             'ssc':(['786524798','SORRIDENTS_CURUCA'],[8,120,8,8,12,15]),
+            'ssr':(['1333441969','SorridentsSTARITA'],[8,120,8,8,12,15]),
             'sgva':(['921845397','SORRIDENTS_GETULIO_VARGAS'],[8,120,8,8,12,15]),
             'stp':(['1619069009','SORRIDENTS_TATUAPE'],[8,120,8,8,12,15]),
             'sse':(['2004635372','SORRIDENTS_SUMARE'],[8,120,8,8,12,15]),
